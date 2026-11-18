@@ -1,71 +1,40 @@
-# Getting Started with Create React App
+# Indie Radar
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Find the newest and most-anticipated **indie games on Steam** and see which ones have **Roblox potential**.
 
-## Available Scripts
+## Run it
 
-In the project directory, you can run:
+You need [Node.js](https://nodejs.org) 18 or newer.
 
-### `npm start`
+```bash
+npm install
+npm run dev
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This starts the Steam API server (port 3001) and the React app, then opens http://localhost:3000.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To run everything as a single app on one port instead: `npm run serve`, then open http://localhost:3001.
 
-### `npm test`
+## What it shows
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Tab | Source on Steam | Why it matters |
+| --- | --- | --- |
+| **Most-wanted upcoming** | Popular upcoming indie games (wishlists/follows) | Find hype *before* a game launches |
+| **Hot new releases** | Popular new indie games from the last 60 days | Proven demand; ranked by reviews per day |
+| **Newest releases** | Every indie game, newest first | See things first (noisy) |
+| **Releasing soonest** | Indie games launching next | Time a Roblox game to a launch |
+| **★ Saved** | Games you saved, with notes | Your shortlist (stored in your browser) |
 
-### `npm run build`
+Each game gets a **Roblox fit score (0–100)**, worked out from its Steam tags. Co-op, multiplayer, horror, survival, simulator/tycoon, idle, obby-style platforming, physics/funny and tower defense count up. Visual novels, story-heavy, turn-based, 2D-only and adult content count down. Each card also suggests a Roblox format, for example "Tycoon: earn → upgrade → rebirth".
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Sort → Fit × hype** brings games that are both Roblox-friendly and getting attention to the top.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## How it works
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `server/steam.js` fetches Steam's public store search, tag list and app details, parses them, and scores each game.
+- `server/index.js` is a small Node server with no dependencies. It caches results for 15 minutes, because browsers can't call Steam directly (CORS).
+- `src/` holds the React UI.
 
-### `npm run eject`
+Tests: `npm run test:server` (parser and scoring) and `npm test` (UI).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# my-react-app" 
+> Use these games as inspiration for genres and mechanics, not as copies. Roblox removes experiences that reuse another game's name, characters, art or music after a DMCA report.

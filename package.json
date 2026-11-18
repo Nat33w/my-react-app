@@ -13,9 +13,13 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "dev": "concurrently -k -n api,web -c blue,green \"npm:server\" \"npm:start\"",
     "start": "react-scripts start",
+    "server": "node server/index.js",
     "build": "react-scripts build",
+    "serve": "npm run build && node server/index.js",
     "test": "react-scripts test",
+    "test:server": "node --test server/steam.test.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -35,5 +39,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.5"
+  },
+  "proxy": "http://localhost:3001",
+  "engines": {
+    "node": ">=18"
   }
 }
